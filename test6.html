@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mahendar R - VLSI Verification Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-darker: #020617;
+            --text-light: #f1f5f9;
+            --text-gray: #cbd5e1;
+            --accent-cyan: #06b6d4;
+            --accent-cyan-dark: #0891b2;
+            --accent-cyan-light: #22d3ee;
+            --card-bg: #1e293b;
+            --card-border: #334155;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed; top: 0; width: 100%;
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        nav { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display:flex; justify-content:space-between; align-items:center; }
+        .logo { font-size:1.5rem; font-weight:700; color:var(--accent-cyan); text-decoration:none; }
+        .nav-links { display:flex; list-style:none; gap:2rem; }
+        .nav-links a { color:var(--text-light); text-decoration:none; font-weight:500; transition: color .3s; }
+        .nav-links a:hover { color:var(--accent-cyan); }
+        .hamburger { display:none; flex-direction:column; cursor:pointer; gap:5px; }
+        .hamburger span { width:25px; height:3px; background-color:var(--text-light); transition:all .3s; }
+
+        /* Hero Section */
+        #home { min-height:100vh; background: linear-gradient(135deg,#0f172a 0%, #1e293b 50%, #0f172a 100%); padding:6rem 2rem 4rem; position:relative; overflow:hidden; display:flex; align-items:center; }
+        #home::before { content:''; position:absolute; top:0; left:0; right:0; bottom:0; background:radial-gradient(circle at 40% 30%, rgba(6,182,212,0.13) 0%, transparent 70%); z-index:0; }
+        .hero-split { display:flex; align-items:center; justify-content:space-between; width:100%; max-width:1200px; margin:0 auto; gap:4rem; position:relative; z-index:1; }
+        .hero-left { flex:1; text-align:left; z-index:1; max-width:650px; }
+        .hero-text { margin-bottom:1.5rem; }
+        .hero-left h1 { font-size:3.5rem; color:var(--accent-cyan); font-weight:700; margin:0 0 .2rem 0; letter-spacing:-1.2px; line-height:1.1; }
+        .hero-left h2 { font-size:1.5rem; color:var(--text-gray); font-weight:500; margin:0; line-height:1.2; }
+        .hero-left p { color:var(--text-gray); font-size:1.13rem; margin-bottom:2rem; line-height:1.8; }
+        .hero-buttons { display:flex; gap:1rem; flex-wrap:wrap; margin-top:.5rem; }
+
+        .hero-right { flex:0 0 280px; display:flex; align-items:center; justify-content:center; z-index:2; }
+        .hero-avatar-glow {
+            width:280px; height:280px; border-radius:50%;
+            border:4px solid var(--accent-cyan);
+            box-shadow:0 25px 60px rgba(6,182,212,0.45), 0 0 80px rgba(6,182,212,0.25), inset 0 0 30px rgba(6,182,212,0.1);
+            overflow:hidden; display:flex; align-items:center; justify-content:center; position:relative; background:var(--card-bg);
+        }
+        .hero-avatar-glow img { width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
+        .avatar-initials { font-size:5rem; font-weight:700; color:var(--accent-cyan); text-shadow:0 0 30px rgba(6,182,212,0.6), 0 0 60px rgba(6,182,212,0.4); z-index:2; position:relative; letter-spacing:.1em; display:none; }
+
+        .btn { padding:.875rem 2rem; border-radius:8px; font-weight:600; text-decoration:none; transition:all .3s; cursor:pointer; border:none; font-size:1rem; font-family:'Inter', sans-serif; }
+        .btn-primary { background-color:var(--accent-cyan); color:var(--bg-dark); }
+        .btn-primary:hover { background-color:var(--accent-cyan-light); transform:translateY(-2px); box-shadow:0 5px 20px rgba(6,182,212,0.4); }
+        .btn-secondary { background-color:transparent; color:var(--accent-cyan); border:2px solid var(--accent-cyan); }
+        .btn-secondary:hover { background-color:var(--accent-cyan); color:var(--bg-dark); transform:translateY(-2px); }
+
+        /* Section Styles */
+        section { padding:5rem 2rem; max-width:1200px; margin:0 auto; }
+        section h2 { font-size:2.5rem; text-align:center; margin-bottom:3rem; color:var(--accent-cyan); font-weight:700; }
+
+        /* About */
+        #about { background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-darker) 100%); }
+        .about-content { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; }
+        .about-text p { margin-bottom:1.5rem; color:var(--text-gray); line-height:1.8; }
+        .about-highlights { display:grid; gap:1.5rem; }
+        .highlight-box { background-color:var(--card-bg); padding:1.5rem; border-radius:10px; border-left:4px solid var(--accent-cyan); transition:transform .3s, box-shadow .3s; }
+        .highlight-box:hover { transform:translateX(5px); box-shadow:0 5px 20px rgba(6,182,212,0.2); }
+        .highlight-box h3 { color:var(--accent-cyan); margin-bottom:.5rem; font-size:1.1rem; }
+        .highlight-box p { color:var(--text-gray); font-size:.95rem; }
+
+        /* Skills */
+        #skills { background-color:var(--bg-darker); }
+        .skills-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:2rem; }
+        .skill-card { background-color:var(--card-bg); padding:2rem; border-radius:12px; border:1px solid var(--card-border); transition:transform .3s; }
+        .skill-card:hover { transform:translateY(-5px); box-shadow:0 10px 30px rgba(6,182,212,0.2); border-color:var(--accent-cyan); }
+        .skill-card h3 { color:var(--accent-cyan); margin-bottom:1.5rem; font-size:1.3rem; }
+        .skill-tags { display:flex; flex-wrap:wrap; gap:.75rem; }
+        .skill-tag { background-color:rgba(6,182,212,0.1); color:var(--accent-cyan); padding:.5rem 1rem; border-radius:6px; font-size:.9rem; border:1px solid rgba(6,182,212,0.3); transition:all .3s; }
+        .skill-tag:hover { background-color:var(--accent-cyan); color:var(--bg-dark); transform:scale(1.05); }
+
+        /* Projects */
+        #projects { background: linear-gradient(180deg, var(--bg-darker) 0%, var(--bg-dark) 100%); }
+        .projects-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:2rem; }
+        .project-card { background-color:var(--card-bg); border-radius:12px; overflow:hidden; border:1px solid var(--card-border); transition:transform .3s; display:flex; flex-direction:column; }
+        .project_card:hover { transform:translateY(-5px); box-shadow:0 10px 30px rgba(6,182,212,0.2); }
+        .project-header { background-color:var(--accent-cyan); color:var(--bg-dark); padding:1.25rem; font-weight:700; font-size:1.1rem; }
+        .project-body { padding:1.5rem; flex-grow:1; display:flex; flex-direction:column; }
+        .project-body p { color:var(--text-gray); margin-bottom:1rem; line-height:1.6; flex-grow:1; }
+        .project-tech { color:var(--accent-cyan); font-size:.85rem; font-weight:600; text-transform:uppercase; letter-spacing:.5px; margin-bottom:1rem; }
+        .coverage-badge { display:inline-flex; align-items:center; gap:.5rem; background:linear-gradient(135deg, rgba(6,182,212,0.15) 0%, rgba(6,182,212,0.25) 100%); color:var(--accent-cyan); padding:.5rem 1rem; border-radius:6px; font-size:.9rem; font-weight:700; margin-bottom:1rem; border:2px solid var(--accent-cyan); box-shadow:0 0 15px rgba(6,182,212,0.3); text-transform:uppercase; letter-spacing:.5px; }
+        .coverage-badge::before { content:'✓'; font-size:1.2rem; font-weight:bold; color:var(--accent-cyan); }
+        .project-card .btn { width:100%; padding:.75rem; }
+
+        /* Experience */
+        #experience { background-color:var(--bg-dark); }
+        .timeline { position:relative; max-width:900px; margin:0 auto; }
+        .timeline::before { content:''; position:absolute; left:50%; transform:translateX(-50%); width:2px; height:100%; background-color:var(--accent-cyan); }
+        .timeline-item { margin-bottom:3rem; position:relative; }
+        .timeline-item:nth-child(odd) .timeline-content { margin-left:0; margin-right:calc(50% + 2rem); }
+        .timeline-item:nth-child(even) .timeline-content { margin-left:calc(50% + 2rem); margin-right:0; }
+        .timeline-dot { position:absolute; left:50%; transform:translateX(-50%); width:16px; height:16px; background-color:var(--accent-cyan); border-radius:50%; top:2rem; border:3px solid var(--bg-dark); box-shadow:0 0 0 3px var(--accent-cyan); }
+        .timeline-content { background-color:var(--card-bg); padding:2rem; border-radius:12px; border:1px solid var(--card-border); transition:transform .3s; }
+        .timeline-content:hover { transform:translateY(-5px); box-shadow:0 10px 30px rgba(6,182,212,0.2); }
+        .timeline-content h3 { color:var(--accent-cyan); font-size:1.4rem; margin-bottom:.5rem; }
+        .timeline-content h4 { color:var(--text-gray); font-size:1.1rem; font-weight:500; margin-bottom:.5rem; }
+        .timeline-content .duration { color:var(--accent-cyan); font-size:.9rem; margin-bottom:1rem; display:inline-block; background-color:rgba(6,182,212,0.1); padding:.25rem .75rem; border-radius:4px; }
+        .timeline-content ul { list-style:none; margin-top:1rem; }
+        .timeline-content li { color:var(--text-gray); margin-bottom:.75rem; padding-left:1.5rem; position:relative; }
+        .timeline-content li::before { content:'✓'; position:absolute; left:0; color:var(--accent-cyan); font-weight:bold; }
+
+        /* Education */
+        #education { background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-darker) 100%); }
+        .education-grid { display:grid; gap:2rem; max-width:800px; margin:0 auto; }
+        .education-card { background-color:var(--card-bg); padding:2rem; border-radius:12px; border-left:4px solid var(--accent-cyan); transition:transform .3s; }
+        .education-card:hover { transform:translateX(10px); box-shadow:0 10px 30px rgba(6,182,212,0.2); }
+        .education-card h3 { color:var(--accent-cyan); font-size:1.3rem; margin-bottom:.5rem; }
+        .education-card h4 { color:var(--text-gray); font-size:1.1rem; font-weight:500; margin-bottom:.5rem; }
+        .education-card .gpa { color:var(--accent-cyan); font-weight:600; }
+
+        /* Contact */
+        #contact { background-color:var(--bg-darker); }
+        .contact-content { max-width:600px; margin:0 auto; }
+        .contact-form { background-color:var(--card-bg); padding:2.5rem; border-radius:12px; border:1px solid var(--card-border); margin-bottom:2rem; }
+        .form-group { margin-bottom:1.5rem; }
+        .form-group label { display:block; margin-bottom:.5rem; color:var(--text-light); font-weight:500; }
+        .form-group input, .form-group textarea { width:100%; padding:.875rem; border-radius:8px; border:1px solid var(--card-border); background-color:var(--bg-darker); color:var(--text-light); font-family:'Inter', sans-serif; font-size:1rem; transition:border-color .3s; }
+        .form-group input:focus, .form-group textarea:focus { outline:none; border-color:var(--accent-cyan); }
+        .form-group textarea { resize:vertical; min-height:150px; }
+        .success-message { background-color:rgba(6,182,212,0.1); color:var(--accent-cyan); padding:1rem; border-radius:8px; margin-bottom:1rem; border:1px solid var(--accent-cyan); display:none; }
+        .success-message.show { display:block; }
+        .contact-info { text-align:center; }
+        .contact-info p { color:var(--text-gray); margin-bottom:1rem; font-size:1.1rem; }
+        .contact-info a { color:var(--accent-cyan); text-decoration:none; transition:color .3s; }
+        .contact-info a:hover { color:var(--accent-cyan-light); text-decoration:underline; }
+
+        /* Footer */
+        footer { background-color:var(--bg-darker); padding:2rem; text-align:center; border-top:1px solid var(--card-border); }
+        footer p { color:var(--text-gray); margin-bottom:1rem; }
+        .footer-links { display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; margin-top:1rem; }
+        .footer-links a { color:var(--accent-cyan); text-decoration:none; transition:color .3s; }
+        .footer-links a:hover { color:var(--accent-cyan-light); }
+
+        /* Responsive */
+        @media (max-width:950px) {
+            .hero-split { flex-direction:column; gap:24px; align-items:flex-start; }
+            .hero-left { width:100%; }
+            .hero-right { margin-top:24px; width:100%; justify-content:flex-start; }
+            .hero-avatar-glow { margin-left:0; }
+        }
+        @media (max-width:768px) {
+            .hamburger { display:flex; }
+            .nav-links { position:fixed; right:-100%; top:70px; flex-direction:column; background-color:rgba(15,23,42,0.98); width:100%; text-align:center; transition:right .3s; padding:2rem 0; box-shadow:0 5px 20px rgba(0,0,0,0.5); }
+            .nav-links.active { right:0; }
+            .hero-left h1 { font-size:2.1rem; margin-bottom:.15rem; }
+            .hero-left h2 { font-size:1.14rem; }
+            .hero-split { flex-direction:column; align-items:stretch; gap:20px; max-width:100vw; }
+            .hero-right { margin-top:18px; justify-content:flex-start; }
+            .hero-avatar-glow { width:180px; height:180px; margin-left:0; }
+            .about-content { grid-template-columns:1fr; }
+            .skills-grid { grid-template-columns: repeat(2, 1fr); }
+            .projects-grid { grid-template-columns: repeat(2, 1fr); }
+            .timeline::before { left:0; }
+            .timeline-dot { left:0; transform:translateX(-50%); }
+            .timeline-item:nth-child(odd) .timeline-content, .timeline-item:nth-child(even) .timeline-content { margin-left:2rem; margin-right:0; }
+        }
+        @media (max-width:480px) {
+            .hero-left h1 { font-size:1.45rem; margin-bottom:.1rem; }
+            .hero-left h2 { font-size:1rem; }
+            .hero-avatar-glow { width:140px; height:140px; }
+            section h2 { font-size:2rem; }
+            .skills-grid { grid-template-columns:1fr; }
+            .projects-grid { grid-template-columns:1fr; }
+            .hero-buttons { flex-direction:column; align-items:stretch; }
+            .btn { width:100%; }
+        }
+
+        /* ---------------------------
+           FINAL: single stagnant understroke on section entry
+           (no hover, no sliding; only one appearance when entering section)
+           --------------------------- */
+
+        /* Define stagnant short bar style but hidden by default */
+        .skill-card::after {
+          content: "";
+          position: absolute;
+          left: 20px;
+          bottom: 18px;
+          width: 56px;
+          height: 4px;
+          background: linear-gradient(90deg, var(--accent-cyan), var(--accent-cyan-light));
+          border-radius: 4px;
+          opacity: 0;
+          transition: opacity 420ms cubic-bezier(.2,.9,.2,1);
+          pointer-events: none;
+        }
+        .timeline-content::after {
+          content: "";
+          position: absolute;
+          left: 20px;
+          bottom: -10px;
+          width: 56px;
+          height: 4px;
+          background: linear-gradient(90deg, var(--accent-cyan), var(--accent-cyan-light));
+          border-radius: 4px;
+          opacity: 0;
+          transition: opacity 420ms cubic-bezier(.2,.9,.2,1);
+          pointer-events: none;
+        }
+
+        /* class applied programmatically on first section entry */
+        .show-single-underline::after {
+          opacity: 1 !important;
+        }
+
+        /* keep nav active indicator behavior */
+        .nav-links a.active {
+          position: relative;
+        }
+        .nav-links a.active::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: -8px;
+          height: 3px;
+          background: linear-gradient(90deg, var(--accent-cyan), var(--accent-cyan-light));
+          border-radius: 3px;
+          transform-origin: left center;
+          transform: scaleX(0);
+          animation: navUnderline 320ms forwards;
+        }
+        @keyframes navUnderline {
+          from { transform: scaleX(0); }
+          to { transform: scaleX(1); }
+        }
+
+        /* reduced-motion safe: show instantly */
+        @media (prefers-reduced-motion: reduce) {
+          .skill-card::after, .timeline-content::after, .nav-links a.active::after {
+            transition: none;
+            opacity: 1 !important;
+          }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#home" class="logo">DVFT Engineer</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home">
+      <div class="hero-split">
+        <div class="hero-left">
+          <div class="hero-text">
+            <h1>Hi, I'm Mahendar</h1>
+            <h2>VLSI Verification Engineer</h2>
+          </div>
+          <p>I am a VLSI Verification Engineer with hands-on experience in SystemVerilog, UVM, and functional verification of complex protocols. I have worked extensively on APB, AHB, AXI, SPI, and I2C protocol verification with a strong focus on constrained-random testing, assertions, scoreboarding, and functional coverage closure.</p>
+          <div class="hero-buttons">
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <button class="btn btn-secondary" id="downloadResume">Download Resume</button>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-avatar-glow">
+            <!-- Replaced with your local photo (photo.jpg) as requested -->
+            <img src="photo.jpg" alt="Mahendar R - Professional Photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <span class="avatar-initials" style="display:none;">MR</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>I am a VLSI Verification Engineer with hands-on experience in SystemVerilog, UVM, and functional verification of complex protocols. I have worked extensively on APB, AHB, AXI, SPI, and I2C protocol verification with a strong focus on constrained-random testing, assertions, scoreboarding, and functional coverage closure.</p>
+                <p>My goal is to deliver high-quality, thoroughly verified silicon through meticulous verification practices, comprehensive coverage analysis, and RTL debugging. I thrive in collaborative environments and enjoy solving challenging verification scenarios and waveform analysis challenges.</p>
+            </div>
+            <div class="about-highlights">
+                <div class="highlight-box">
+                    <h3>Experience</h3>
+                    <p>6 months Professional VLSI Verification Training &amp; Protocol Implementation</p>
+                </div>
+                <div class="highlight-box">
+                    <h3>Key Strengths</h3>
+                    <p>UVM Verification, Protocol Testbenches, Coverage Closure</p>
+                </div>
+                <div class="highlight-box">
+                    <h3>Protocols Verified</h3>
+                    <p>AXI 3, AHB, APB, SPI, I2C &amp; EEPROM</p>
+                </div>
+                <div class="highlight-box">
+                    <h3>Tools &amp; Languages</h3>
+                    <p>VCS, QuestaSim, ModelSim, Vivado, EDA Playground</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>Verification</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">SystemVerilog</span>
+                    <span class="skill-tag">UVM</span>
+                    <span class="skill-tag">Assertions (SVA)</span>
+                    <span class="skill-tag">Functional Coverage</span>
+                    <span class="skill-tag">Verilog</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3>Protocols Verified</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">AXI 3</span>
+                    <span class="skill-tag">AHB</span>
+                    <span class="skill-tag">APB</span>
+                    <span class="skill-tag">SPI</span>
+                    <span class="skill-tag">I2C</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3>Simulation &amp; Tools</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Synopsys VCS</span>
+                    <span class="skill-tag">QuestaSim</span>
+                    <span class="skill-tag">ModelSim</span>
+                    <span class="skill-tag">Vivado</span>
+                    <span class="skill-tag">EDA Playground</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3>Languages</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Verilog</span>
+                    <span class="skill-tag">SystemVerilog</span>
+                    <span class="skill-tag">C</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Linux</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3>Methodologies</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Constrained Random</span>
+                    <span class="skill-tag">Scoreboarding</span>
+                    <span class="skill-tag">Coverage Closure</span>
+                    <span class="skill-tag">Waveform Analysis</span>
+                    <span class="skill-tag">RTL Debugging</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3>Expertise Areas</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">UVM Components</span>
+                    <span class="skill-tag">Testbench Architecture</span>
+                    <span class="skill-tag">Driver &amp; Monitor</span>
+                    <span class="skill-tag">Predictor &amp; Scoreboard</span>
+                    <span class="skill-tag">Directed Tests</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-header">AXI 3 Protocol Verification</div>
+                <div class="project-body">
+                    <div class="coverage-badge">100% Coverage Achieved</div>
+                    <p>Built a complete AXI UVM environment with driver, monitor, agent, sequencer, scoreboard, predictor, and functional coverage. Developed directed and constrained-random tests for fixed, increment, wrap, error, and reset scenarios.</p>
+                    <div class="project-tech">SystemVerilog, UVM, VCS, Assertions</div>
+                    <button class="btn btn-primary" onclick="showProjectDetails(0)">View Details</button>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">APB Protocol Verification</div>
+                <div class="project-body">
+                    <div class="coverage-badge">100% Coverage Achieved</div>
+                    <p>Built both SystemVerilog testbench and complete UVM environment including driver, monitor, agent, predictor, scoreboard, and functional coverage. Developed tests for read, write, reset, zero-wait, SLVERR scenarios.</p>
+                    <div class="project-tech">SystemVerilog, UVM, QuestaSim</div>
+                    <button class="btn btn-primary" onclick="showProjectDetails(1)">View Details</button>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">AHB Bus System Verification</div>
+                <div class="project-body">
+                    <div class="coverage-badge">100% Coverage Achieved</div>
+                    <p>Built structured SystemVerilog verification environment with driver, monitor, generator, scoreboard, and functional coverage. Developed nine directed testcases covering read, write, burst, and increment operations.</p>
+                    <div class="project-tech">SystemVerilog, Scoreboard, ModelSim</div>
+                    <button class="btn btn-primary" onclick="showProjectDetails(2)">View Details</button>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">I2C EEPROM Controller</div>
+                <div class="project-body">
+                    <p>RTL design and complete verification suite for I2C master controller with EEPROM communication and edge case handling.</p>
+                    <div class="project-tech">Verilog, SystemVerilog, UVM, ModelSim</div>
+                    <button class="btn btn-primary" onclick="showProjectDetails(3)">View Details</button>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">SPI Master/Slave Interface</div>
+                <div class="project-body">
+                    <p>Built SPI Master and Slave RTL modules implementing shift-register-based serial communication with CPOL/CPHA modes. Developed SystemVerilog testbench to test MOSI/MISO data transfers and chip-select operation.</p>
+                    <div class="project-tech">Verilog, SystemVerilog, ModelSim</div>
+                    <button class="btn btn-primary" onclick="showProjectDetails(4)">View Details</button>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">4-bit Priority Encoder Verification</div>
+                <div class="project-body">
+                    <p>Designed and verified a 4-bit priority encoder using Verilog/SystemVerilog and UVM. Built key UVM components, performed simulation and debugging on EDA Playground with 100% pass results.</p>
+                    <div class="project-tech">Verilog, SystemVerilog, UVM, EDA Playground</div>
+                    <button class="btn btn-primary" onclick="showProjectDetails(5)">View Details</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <h2>Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>Professional VLSI Training</h3>
+                    <h4>ChipEdge Technologies</h4>
+                    <span class="duration">Jun 2025 – Nov 2025 (6 months)</span>
+                    <ul>
+                        <li>Completed intensive hands-on training in SystemVerilog, UVM, and functional verification</li>
+                        <li>Developed comprehensive testbenches for APB, AHB, AXI, SPI, and I2C protocols with 100% coverage</li>
+                        <li>Built and optimized UVM components (Driver, Monitor, Scoreboard, Predictor) with VCS, QuestaSim, ModelSim</li>
+                        <li>Coverage Achievements: APB &amp; AXI (100%), AHB (100% with 8 directed tests)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>VLSI Design Intern</h3>
+                    <h4>Rooman Technologies</h4>
+                    <span class="duration">Oct 2024 – Mar 2025</span>
+                    <ul>
+                        <li>Designed and verified 4-bit priority encoder using Verilog/SystemVerilog and UVM</li>
+                        <li>Built key UVM components and performed simulation on EDA Playground</li>
+                        <li>Validated all test scenarios with 100% pass results</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>Embedded Hardware Engineer</h3>
+                    <h4>Technofly Solutions</h4>
+                    <span class="duration">Oct 2022 – Oct 2022</span>
+                    <ul>
+                        <li>Assisted in design and development of embedded systems</li>
+                        <li>Gained hands-on experience with microcontrollers and firmware programming</li>
+                        <li>Worked on hardware integration for various applications</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+        <h2>Education</h2>
+        <div class="education-grid">
+            <div class="education-card">
+                <h3>B.E. in Electronics &amp; Communication Engineering</h3>
+                <h4>Sambhram Institute of Technology</h4>
+                <p class="gpa">GPA: 8.27/10 (82.7%)</p>
+            </div>
+            <div class="education-card">
+                <h3>Pre-University Course (PUC)</h3>
+                <h4>Sri Jagadguru Renukacharya College of Science, Arts &amp; Commerce</h4>
+                <p class="gpa">GPA: 85.5%</p>
+            </div>
+            <div class="education-card">
+                <h3>Secondary School Leaving Certificate (SSLC)</h3>
+                <h4>Shushruti Vidya Samaste, Bengaluru</h4>
+                <p class="gpa">GPA: 88.32%</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Get In Touch</h2>
+        <div class="contact-content">
+            <form class="contact-form" id="contactForm">
+                <div class="success-message" id="successMessage">Thank you for your message! I'll get back to you soon.</div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;">Send Message</button>
+            </form>
+            <div class="contact-info">
+                <p><strong>Email:</strong> <a href="mailto:mahendar20r@gmail.com">mahendar20r@gmail.com</a></p>
+                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/mahendar-r-155684265" target="_blank">linkedin.com/in/mahendar-r-155684265</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Mahendar R. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#experience">Experience</a>
+            <a href="#education">Education</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        // Project details data
+        const projectDetails = [
+            "Project: AXI 3 Protocol Verification\n\n• Complete UVM environment with all components\n• Directed & constrained-random tests\n• ✓ 100% Functional Coverage Achieved\n• All read/write channels & handshakes verified\n• Fixed, Increment, Wrap, Error modes tested\n• Waveform analysis validated with coverage reports",
+            "Project: APB Protocol Verification\n\n• SystemVerilog & UVM environments\n• 10 comprehensive test scenarios\n• Read, Write, Reset, SLVERR, Zero-Wait modes\n• ✓ 100% Functional Coverage Achieved\n• Constrained-random stimulus with coverage closure\n• Verified with merged coverage reports",
+            "Project: AHB Bus System Verification\n\n• 8 directed testcases (Single, Wrap, INCR modes)\n• Read/write/burst/increment coverage\n• ✓ 100% Functional Coverage Achieved\n• Line Coverage: 100% | Branch Coverage: 100%\n• Protocol handshake validation\n• Address/data/control signal verification",
+            "Project: I2C Controller\n\nIncludes:\n• RTL implementation\n• I2C protocol verification\n• EEPROM read/write\n• Edge cases & timing",
+            "Project: SPI Master/Slave Interface\n\n• RTL with shift-register implementation\n• CPOL/CPHA mode support\n• MOSI/MISO data transfers\n• Chip-select operation verified\n• Timing validation through waveforms",
+            "Project: 4-bit Priority Encoder\n\n• RTL design in Verilog\n• Complete UVM testbench\n• EDA Playground simulation\n• 100% test pass rate\n• All scenarios validated"
+        ];
+
+        function showProjectDetails(index) {
+            alert(projectDetails[index]);
+        }
+
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        const navLinkElements = document.querySelectorAll('.nav-link');
+
+        hamburger.addEventListener('click', () => { navLinks.classList.toggle('active'); });
+
+        navLinkElements.forEach(link => {
+            link.addEventListener('click', () => { navLinks.classList.remove('active'); });
+        });
+
+        // Contact form submission
+        const contactForm = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            successMessage.classList.add('show');
+            contactForm.reset();
+            setTimeout(() => { successMessage.classList.remove('show'); }, 5000);
+        });
+
+        // --- DOWNLOAD RESUME (copied from your original file) ---
+        function downloadResume() {
+            const link = document.createElement('a');
+            link.href = 'resume_mahendar_r.pdf';
+            link.download = 'Mahendar_Resume.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Wire the button
+        const downloadResumeBtn = document.getElementById('downloadResume');
+        downloadResumeBtn.addEventListener('click', downloadResume);
+    </script>
+
+    <!-- NEW: single-show understroke logic (no hover/touch triggers) -->
+    <script>
+(function(){
+  // Duration (ms) the single underline stays visible after first show
+  const SHOW_MS = 1400;
+
+  // Track which sections have already shown their single underline (so it's "only once")
+  const shownMap = new Map();
+
+  // helper to add 'show-single-underline' only to the first relevant element in a section
+  function showUnderlineForSection(section) {
+    if (!section || shownMap.get(section.id)) return;
+    // for 'skills' section, target first .skill-card
+    if (section.id === 'skills') {
+      const firstCard = section.querySelector('.skill-card');
+      if (firstCard) {
+        firstCard.classList.add('show-single-underline');
+        shownMap.set(section.id, true);
+        setTimeout(()=> firstCard.classList.remove('show-single-underline'), SHOW_MS);
+      }
+    }
+    // for 'experience' section, target the timeline-content nearest center (or first)
+    if (section.id === 'experience') {
+      const items = Array.from(section.querySelectorAll('.timeline-content'));
+      if (items.length) {
+        // find nearest to viewport center
+        const centerY = window.scrollY + window.innerHeight/2;
+        let best = items[0], bestDiff = Infinity;
+        items.forEach(it => {
+          const rect = it.getBoundingClientRect();
+          const top = rect.top + window.scrollY;
+          const mid = top + rect.height/2;
+          const diff = Math.abs(mid - centerY);
+          if (diff < bestDiff) { bestDiff = diff; best = it; }
+        });
+        best.classList.add('show-single-underline');
+        shownMap.set(section.id, true);
+        setTimeout(()=> best.classList.remove('show-single-underline'), SHOW_MS);
+      }
+    }
+  }
+
+  // IntersectionObserver to detect section entry
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(ent => {
+        if (ent.isIntersecting) {
+          // set nav active
+          const id = ent.target.id;
+          document.querySelectorAll('.nav-links a').forEach(a=>{
+            if (a.getAttribute('href') === `#${id}`) a.classList.add('active'); else a.classList.remove('active');
+          });
+          // show underline only once per section, and only when section intersects (user landed there)
+          showUnderlineForSection(ent.target);
+        }
+      });
+    }, { threshold: 0.45 });
+
+    document.querySelectorAll('section[id]').forEach(s => io.observe(s));
+  } else {
+    // fallback: on scroll, determine nearest section and treat as entry
+    window.addEventListener('scroll', function(){
+      const mid = window.scrollY + window.innerHeight/2;
+      let best = null, bestTop = -Infinity;
+      document.querySelectorAll('section[id]').forEach(s => {
+        const rect = s.getBoundingClientRect();
+        const top = rect.top + window.scrollY;
+        if (top <= mid && top > bestTop) { bestTop = top; best = s; }
+      });
+      if (best) {
+        document.querySelectorAll('.nav-links a').forEach(a=>{
+          if (a.getAttribute('href') === `#${best.id}`) a.classList.add('active'); else a.classList.remove('active');
+        });
+        showUnderlineForSection(best);
+      }
+    }, { passive: true });
+  }
+
+  // keep nav link click behavior (still set active and trigger the single underline after anchor jump)
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      const href = a.getAttribute('href');
+      if (!href || !href.startsWith('#')) return;
+      const id = href.slice(1);
+      // immediately set nav active visually
+      document.querySelectorAll('.nav-links a').forEach(x=> x.classList.remove('active'));
+      a.classList.add('active');
+
+      // after a short delay (allow anchor jump), show underline for that section
+      setTimeout(()=> {
+        const sec = document.getElementById(id);
+        if (sec) showUnderlineForSection(sec);
+      }, 160);
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
